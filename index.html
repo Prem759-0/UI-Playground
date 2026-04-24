@@ -1,212 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>UI Playground</title>
+<meta charset="UTF-8">
+<title>UI Playground</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  <style>
-    body {
-      background: radial-gradient(circle at center, #0f172a, #020617);
-      overflow-x: hidden;
-    }
+<style>
+:root {
+  --bg: #020617;
+  --text: #ffffff;
+}
 
-    /* LOADER */
-    .loader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #020617;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      font-size: 2rem;
-    }
+.light {
+  --bg: #f8fafc;
+  --text: #020617;
+}
 
-    /* CURSOR */
-    .cursor {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      position: fixed;
-      background: rgba(99,102,241,0.6);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      filter: blur(8px);
-      transition: transform 0.2s ease;
-      z-index: 999;
-    }
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
+}
 
-    /* BLOB */
-    .blob {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, #6366f1, transparent);
-      filter: blur(120px);
-      top: 20%;
-      left: 30%;
-      z-index: -1;
-      animation: float 10s infinite alternate ease-in-out;
-    }
+/* LOADER */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
 
-    @keyframes float {
-      0% { transform: translate(0,0); }
-      100% { transform: translate(100px, 50px); }
-    }
+/* CURSOR */
+.cursor {
+  width:20px;
+  height:20px;
+  position:fixed;
+  border-radius:50%;
+  background:rgba(99,102,241,0.6);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  filter:blur(8px);
+  z-index:999;
+}
 
-    /* GLASS */
-    .glass {
-      backdrop-filter: blur(20px);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+/* GLASS */
+.glass {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
 
-    /* LIQUID BUTTON */
-    .liquid-btn {
-      position: relative;
-      overflow: hidden;
-    }
+/* BLOB */
+.blob {
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#6366f1,transparent);
+  filter:blur(120px);
+  top:20%;
+  left:30%;
+  z-index:-1;
+}
 
-    .liquid-btn::before {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
-      top: -50%;
-      left: -50%;
-      transform: scale(0);
-      transition: transform 0.5s ease;
-    }
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
 
-    .liquid-btn:hover::before {
-      transform: scale(1);
-    }
+.modal-content {
+  padding:40px;
+  border-radius:20px;
+}
 
-  </style>
+/* MAGNETIC */
+.magnetic {
+  transition: transform 0.2s ease;
+  cursor:pointer;
+}
+
+</style>
 </head>
 
-<body class="text-white font-sans">
+<body class="font-sans">
 
-<!-- LOADER -->
 <div class="loader">Loading...</div>
-
-<!-- CURSOR -->
 <div class="cursor"></div>
-
-<!-- BLOB -->
 <div class="blob"></div>
+
+<!-- NAV -->
+<div class="fixed top-5 right-5 z-50">
+  <button id="themeToggle" class="px-4 py-2 bg-indigo-500 rounded-full">
+    Toggle Theme
+  </button>
+</div>
 
 <!-- HERO -->
 <section class="h-screen flex flex-col justify-center items-center text-center">
   <h1 class="text-5xl font-bold mb-6">UI Playground</h1>
-  <p class="text-gray-400 mb-10">Advanced Frontend Experiments</p>
-
-  <button class="liquid-btn px-8 py-4 bg-indigo-500 rounded-full text-lg hover:scale-110 transition">
-    Hover Me
-  </button>
+  <p class="opacity-70 mb-10">Interactive UI Experiments</p>
 </section>
 
-<!-- CARDS -->
-<section class="p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-  <div class="glass p-6 rounded-2xl reveal">
-    <h2 class="text-xl">Glass Effect</h2>
+<!-- GALLERY -->
+<section class="p-10 grid md:grid-cols-3 gap-8">
+
+  <div class="glass p-6 rounded-2xl magnetic demo-card">
+    Click Demo 1
   </div>
-  <div class="glass p-6 rounded-2xl reveal">
-    <h2 class="text-xl">Hover Animation</h2>
+
+  <div class="glass p-6 rounded-2xl magnetic demo-card">
+    Click Demo 2
   </div>
-  <div class="glass p-6 rounded-2xl reveal">
-    <h2 class="text-xl">Micro Interaction</h2>
+
+  <div class="glass p-6 rounded-2xl magnetic demo-card">
+    Click Demo 3
   </div>
+
 </section>
 
-<!-- SCROLL SECTION -->
-<section class="h-[200vh] flex flex-col justify-center items-center text-center">
-  <h2 class="text-4xl mb-10 reveal">Scroll Animations</h2>
-
-  <div class="grid md:grid-cols-3 gap-10 p-10">
-    <div class="glass p-6 rounded-2xl reveal">Fade</div>
-    <div class="glass p-6 rounded-2xl reveal">Slide</div>
-    <div class="glass p-6 rounded-2xl reveal">Trigger</div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content glass">
+    <h2 class="text-2xl mb-4">Demo Opened</h2>
+    <button onclick="closeModal()" class="px-4 py-2 bg-red-500 rounded">
+      Close
+    </button>
   </div>
-</section>
+</div>
 
 <script>
-  gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  // LOADER
-  window.addEventListener("load", () => {
-    gsap.to(".loader", {
-      opacity: 0,
-      duration: 1,
-      onComplete: () => document.querySelector(".loader").style.display = "none"
-    });
+/* LOADER */
+window.addEventListener("load", () => {
+  gsap.to(".loader", {
+    opacity:0,
+    duration:1,
+    onComplete:()=>document.querySelector(".loader").style.display="none"
+  });
+});
+
+/* CURSOR */
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", (e)=>{
+  gsap.to(cursor,{x:e.clientX,y:e.clientY});
+});
+
+/* CURSOR SCALE */
+document.querySelectorAll(".magnetic").forEach(el=>{
+  el.addEventListener("mouseenter",()=>gsap.to(cursor,{scale:2}));
+  el.addEventListener("mouseleave",()=>gsap.to(cursor,{scale:1}));
+});
+
+/* MAGNETIC EFFECT */
+document.querySelectorAll(".magnetic").forEach(el=>{
+  el.addEventListener("mousemove",(e)=>{
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+    gsap.to(el,{x:x*0.2,y:y*0.2});
   });
 
-  // CURSOR
-  const cursor = document.querySelector(".cursor");
-
-  document.addEventListener("mousemove", (e) => {
-    gsap.to(cursor, {
-      x: e.clientX,
-      y: e.clientY,
-      duration: 0.2
-    });
+  el.addEventListener("mouseleave",()=>{
+    gsap.to(el,{x:0,y:0});
   });
+});
 
-  // CURSOR SCALE ON HOVER
-  document.querySelectorAll("button, .glass").forEach(el => {
-    el.addEventListener("mouseenter", () => {
-      gsap.to(cursor, { scale: 2 });
-    });
-    el.addEventListener("mouseleave", () => {
-      gsap.to(cursor, { scale: 1 });
-    });
-  });
-
-  // SCROLL ANIMATIONS
-  gsap.utils.toArray(".reveal").forEach((el) => {
-    gsap.from(el, {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: el,
-        start: "top 80%"
-      }
-    });
-  });
-
-  // PARALLAX
-  gsap.to(".blob", {
-    y: 200,
-    scrollTrigger: {
-      scrub: true
+/* SCROLL */
+gsap.utils.toArray(".glass").forEach(el=>{
+  gsap.from(el,{
+    opacity:0,
+    y:100,
+    duration:1,
+    scrollTrigger:{
+      trigger:el,
+      start:"top 80%"
     }
   });
+});
 
-  // HERO ANIMATION
-  gsap.from("h1", {
-    y: -50,
-    opacity: 0,
-    duration: 1
-  });
+/* PARALLAX */
+gsap.to(".blob",{
+  y:200,
+  scrollTrigger:{scrub:true}
+});
 
-  gsap.from("p", {
-    y: 30,
-    opacity: 0,
-    duration: 1,
-    delay: 0.3
+/* MODAL */
+const modal = document.getElementById("modal");
+document.querySelectorAll(".demo-card").forEach(card=>{
+  card.addEventListener("click",()=>{
+    modal.style.display="flex";
+    gsap.from(".modal-content",{scale:0, duration:0.5});
   });
+});
+
+function closeModal(){
+  modal.style.display="none";
+}
+
+/* THEME TOGGLE */
+const toggle = document.getElementById("themeToggle");
+toggle.addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+});
+
+/* HERO ANIMATION */
+gsap.from("h1",{y:-50,opacity:0,duration:1});
+gsap.from("p",{y:30,opacity:0,duration:1,delay:0.3});
 
 </script>
 
