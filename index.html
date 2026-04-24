@@ -2,191 +2,150 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>UI Playground Ultra</title>
+<title>UI Playground Real</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
 body {
-  margin:0;
   background:#020617;
   color:white;
-  overflow-x:hidden;
-  font-family:sans-serif;
 }
 
-/* HERO */
-.hero {
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  position:relative;
-}
-
-/* CURSOR SPOTLIGHT */
-.spotlight {
-  position:fixed;
-  width:300px;
-  height:300px;
-  background: radial-gradient(circle, rgba(99,102,241,0.4), transparent);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:1;
-}
-
-/* TEXT REVEAL */
-.reveal-text span {
-  display:inline-block;
-  opacity:0;
-  transform:translateY(50px);
-}
-
-/* PARALLAX LAYERS */
-.layer {
-  position:absolute;
-  width:200px;
-  height:200px;
-  border-radius:50%;
-  filter:blur(80px);
-}
-
-.layer1 { background:#6366f1; top:20%; left:10%; }
-.layer2 { background:#ec4899; top:60%; right:10%; }
-
-/* CARDS */
-.card-adv {
+/* CARD */
+.card-ui {
   background:rgba(255,255,255,0.05);
-  padding:30px;
   border-radius:20px;
-  transition:0.4s;
-  backdrop-filter:blur(15px);
+  padding:20px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.card-ui:hover {
+  transform:scale(1.03);
 }
 
-.card-adv:hover {
-  transform:scale(1.05) rotate(1deg);
+/* PREVIEW BOX */
+.preview {
+  background:#0f172a;
+  padding:20px;
+  border-radius:10px;
+  margin:10px 0;
 }
 
-.section {
-  padding:100px 20px;
+/* BUTTON */
+.copy-btn {
+  background:#6366f1;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  color:white;
+}
+
+/* TOAST */
+.toast-custom {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#22c55e;
+  padding:10px;
+  border-radius:8px;
+  display:none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- CURSOR LIGHT -->
-<div class="spotlight" id="spot"></div>
+<div class="container py-5">
 
-<!-- HERO -->
-<section class="hero">
+<h1 class="mb-5">UI Playground Components</h1>
 
-<div class="layer layer1"></div>
-<div class="layer layer2"></div>
+<div class="row g-4">
 
-<h1 class="display-3 reveal-text" id="title">
-  UI Playground
-</h1>
+<!-- COMPONENT 1 -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Gradient Button</h5>
+    <p class="text-muted">Modern animated button</p>
 
-<p class="mt-3 opacity-75">Next-level frontend experience</p>
-
-</section>
-
-<!-- COMPONENT SECTION -->
-<section class="section container">
-  <h2 class="mb-5">Interactive Components</h2>
-
-  <div class="row g-4">
-
-    <div class="col-md-4">
-      <div class="card-adv">
-        <h5>Hover Distortion</h5>
-        <p>Premium UI effect</p>
-      </div>
+    <div class="preview">
+      <button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; color:white; border-radius:20px;">
+        Click Me
+      </button>
     </div>
 
-    <div class="col-md-4">
-      <div class="card-adv">
-        <h5>3D Tilt Feel</h5>
-        <p>Mouse interaction</p>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card-adv">
-        <h5>Scroll Animation</h5>
-        <p>Reveal elements</p>
-      </div>
-    </div>
-
+    <button class="copy-btn" onclick="copy('btn')">Copy Code</button>
   </div>
-</section>
+</div>
+
+<!-- COMPONENT 2 -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Loader Spinner</h5>
+    <p class="text-muted">Simple loading animation</p>
+
+    <div class="preview">
+      <div class="spinner-border text-light"></div>
+    </div>
+
+    <button class="copy-btn" onclick="copy('loader')">Copy Code</button>
+  </div>
+</div>
+
+<!-- COMPONENT 3 -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Glass Card</h5>
+    <p class="text-muted">Glassmorphism UI</p>
+
+    <div class="preview">
+      <div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">
+        Glass Effect
+      </div>
+    </div>
+
+    <button class="copy-btn" onclick="copy('card')">Copy Code</button>
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="toast-custom" id="toast">Copied!</div>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
 
-/* SPOTLIGHT CURSOR */
-const spot = document.getElementById("spot");
-document.addEventListener("mousemove", e=>{
-  gsap.to(spot,{x:e.clientX,y:e.clientY,duration:0.2});
-});
+/* COPY SYSTEM */
+function copy(type){
+  let code = {
+    btn:`<button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; color:white; border-radius:20px;">Click</button>`,
 
-/* TEXT REVEAL */
-let chars = document.getElementById("title").innerText.split("");
-let html = "";
-chars.forEach(c=>{
-  html += `<span>${c}</span>`;
-});
-document.getElementById("title").innerHTML = html;
+    loader:`<div class="spinner-border"></div>`,
 
-gsap.to(".reveal-text span",{
-  opacity:1,
-  y:0,
-  stagger:0.05,
-  duration:0.8
-});
+    card:`<div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">Glass</div>`
+  };
 
-/* PARALLAX */
-gsap.to(".layer1",{
-  y:100,
-  scrollTrigger:{scrub:true}
-});
-gsap.to(".layer2",{
-  y:-100,
-  scrollTrigger:{scrub:true}
-});
+  navigator.clipboard.writeText(code[type]);
+  showToast();
+}
 
-/* SCROLL REVEAL */
-gsap.from(".card-adv",{
+/* TOAST */
+function showToast(){
+  let t = document.getElementById("toast");
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",2000);
+}
+
+/* ANIMATION */
+gsap.from(".card-ui", {
   opacity:0,
-  y:100,
-  stagger:0.2,
-  scrollTrigger:{
-    trigger:".card-adv",
-    start:"top 80%"
-  }
+  y:50,
+  duration:1,
+  stagger:0.2
 });
 
-/* 3D TILT */
-document.querySelectorAll(".card-adv").forEach(card=>{
-  card.addEventListener("mousemove",e=>{
-    let r = card.getBoundingClientRect();
-    let x = (e.clientX - r.left)/r.width - 0.5;
-    let y = (e.clientY - r.top)/r.height - 0.5;
-    card.style.transform = `rotateX(${y*10}deg) rotateY(${x*10}deg) scale(1.05)`;
-  });
-
-  card.addEventListener("mouseleave",()=>{
-    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
-  });
-});
 </script>
 
 </body>
