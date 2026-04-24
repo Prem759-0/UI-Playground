@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>UI Playground</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     body {
@@ -12,66 +17,142 @@
       overflow-x: hidden;
     }
 
+    /* LOADER */
+    .loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #020617;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-size: 2rem;
+    }
+
+    /* CURSOR */
     .cursor {
       width: 20px;
       height: 20px;
       border-radius: 50%;
       position: fixed;
-      background: rgba(99, 102, 241, 0.6);
+      background: rgba(99,102,241,0.6);
       pointer-events: none;
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
       filter: blur(8px);
+      transition: transform 0.2s ease;
+      z-index: 999;
     }
 
+    /* BLOB */
+    .blob {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #6366f1, transparent);
+      filter: blur(120px);
+      top: 20%;
+      left: 30%;
+      z-index: -1;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(100px, 50px); }
+    }
+
+    /* GLASS */
     .glass {
       backdrop-filter: blur(20px);
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .magnetic {
-      transition: transform 0.2s ease;
+    /* LIQUID BUTTON */
+    .liquid-btn {
+      position: relative;
+      overflow: hidden;
     }
+
+    .liquid-btn::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+      top: -50%;
+      left: -50%;
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+
+    .liquid-btn:hover::before {
+      transform: scale(1);
+    }
+
   </style>
 </head>
 
 <body class="text-white font-sans">
 
+<!-- LOADER -->
+<div class="loader">Loading...</div>
+
+<!-- CURSOR -->
 <div class="cursor"></div>
+
+<!-- BLOB -->
+<div class="blob"></div>
 
 <!-- HERO -->
 <section class="h-screen flex flex-col justify-center items-center text-center">
   <h1 class="text-5xl font-bold mb-6">UI Playground</h1>
   <p class="text-gray-400 mb-10">Advanced Frontend Experiments</p>
 
-  <button class="magnetic px-8 py-4 bg-indigo-500 rounded-full text-lg">
+  <button class="liquid-btn px-8 py-4 bg-indigo-500 rounded-full text-lg hover:scale-110 transition">
     Hover Me
   </button>
 </section>
 
 <!-- CARDS -->
 <section class="p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-  
-  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
-    <h2 class="text-xl mb-2">Glass Card</h2>
-    <p class="text-gray-400">Modern blur UI effect</p>
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-xl">Glass Effect</h2>
   </div>
-
-  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
-    <h2 class="text-xl mb-2">Hover Animation</h2>
-    <p class="text-gray-400">Smooth scaling interaction</p>
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-xl">Hover Animation</h2>
   </div>
-
-  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
-    <h2 class="text-xl mb-2">Micro UX</h2>
-    <p class="text-gray-400">Subtle UI polish</p>
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-xl">Micro Interaction</h2>
   </div>
+</section>
 
+<!-- SCROLL SECTION -->
+<section class="h-[200vh] flex flex-col justify-center items-center text-center">
+  <h2 class="text-4xl mb-10 reveal">Scroll Animations</h2>
+
+  <div class="grid md:grid-cols-3 gap-10 p-10">
+    <div class="glass p-6 rounded-2xl reveal">Fade</div>
+    <div class="glass p-6 rounded-2xl reveal">Slide</div>
+    <div class="glass p-6 rounded-2xl reveal">Trigger</div>
+  </div>
 </section>
 
 <script>
-  // Cursor effect
+  gsap.registerPlugin(ScrollTrigger);
+
+  // LOADER
+  window.addEventListener("load", () => {
+    gsap.to(".loader", {
+      opacity: 0,
+      duration: 1,
+      onComplete: () => document.querySelector(".loader").style.display = "none"
+    });
+  });
+
+  // CURSOR
   const cursor = document.querySelector(".cursor");
 
   document.addEventListener("mousemove", (e) => {
@@ -82,28 +163,38 @@
     });
   });
 
-  // Magnetic button
-  const button = document.querySelector(".magnetic");
-
-  button.addEventListener("mousemove", (e) => {
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width/2;
-    const y = e.clientY - rect.top - rect.height/2;
-
-    gsap.to(button, {
-      x: x * 0.3,
-      y: y * 0.3
+  // CURSOR SCALE ON HOVER
+  document.querySelectorAll("button, .glass").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      gsap.to(cursor, { scale: 2 });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(cursor, { scale: 1 });
     });
   });
 
-  button.addEventListener("mouseleave", () => {
-    gsap.to(button, {
-      x: 0,
-      y: 0
+  // SCROLL ANIMATIONS
+  gsap.utils.toArray(".reveal").forEach((el) => {
+    gsap.from(el, {
+      y: 100,
+      opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 80%"
+      }
     });
   });
 
-  // Entry animation
+  // PARALLAX
+  gsap.to(".blob", {
+    y: 200,
+    scrollTrigger: {
+      scrub: true
+    }
+  });
+
+  // HERO ANIMATION
   gsap.from("h1", {
     y: -50,
     opacity: 0,
