@@ -2,102 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>UI Playground Real</title>
+<title>UI Playground Pro</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
 body {
-  background:#020617;
-  color:white;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+.header {
+  padding: 40px 0;
+  text-align: center;
 }
 
 /* CARD */
 .card-ui {
-  background:rgba(255,255,255,0.05);
-  border-radius:20px;
-  padding:20px;
-  backdrop-filter:blur(10px);
-  transition:0.3s;
-}
-.card-ui:hover {
-  transform:scale(1.03);
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
-/* PREVIEW BOX */
+.card-ui:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #6366f1;
+}
+
+/* PREVIEW */
 .preview {
-  background:#0f172a;
-  padding:20px;
-  border-radius:10px;
-  margin:10px 0;
+  background: #020617;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 15px 0;
+  text-align: center;
 }
 
 /* BUTTON */
 .copy-btn {
-  background:#6366f1;
-  border:none;
-  padding:6px 12px;
-  border-radius:6px;
-  color:white;
+  background: linear-gradient(45deg,#6366f1,#ec4899);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: white;
 }
 
 /* TOAST */
 .toast-custom {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#22c55e;
-  padding:10px;
-  border-radius:8px;
-  display:none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #22c55e;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: none;
 }
+
+/* BADGE */
+.tag {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container py-5">
+<div class="container">
 
-<h1 class="mb-5">UI Playground Components</h1>
+<!-- HEADER -->
+<div class="header">
+  <h1>✨ UI Playground Pro</h1>
+  <p class="text-secondary">Modern UI Components with Live Preview</p>
+</div>
 
 <div class="row g-4">
 
-<!-- COMPONENT 1 -->
+<!-- COMPONENT -->
 <div class="col-md-4">
   <div class="card-ui">
-    <h5>Gradient Button</h5>
-    <p class="text-muted">Modern animated button</p>
+    <h5>Gradient Button <span class="tag">Button</span></h5>
+    <p class="text-secondary">Modern animated gradient button</p>
 
     <div class="preview">
-      <button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; color:white; border-radius:20px;">
+      <button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; border-radius:20px; color:white;">
         Click Me
       </button>
     </div>
 
-    <button class="copy-btn" onclick="copy('btn')">Copy Code</button>
+    <button class="copy-btn" onclick="copy('btn')">Copy</button>
   </div>
 </div>
 
-<!-- COMPONENT 2 -->
+<!-- COMPONENT -->
 <div class="col-md-4">
   <div class="card-ui">
-    <h5>Loader Spinner</h5>
-    <p class="text-muted">Simple loading animation</p>
-
-    <div class="preview">
-      <div class="spinner-border text-light"></div>
-    </div>
-
-    <button class="copy-btn" onclick="copy('loader')">Copy Code</button>
-  </div>
-</div>
-
-<!-- COMPONENT 3 -->
-<div class="col-md-4">
-  <div class="card-ui">
-    <h5>Glass Card</h5>
-    <p class="text-muted">Glassmorphism UI</p>
+    <h5>Glass Card <span class="tag">Card</span></h5>
+    <p class="text-secondary">Glassmorphism effect UI</p>
 
     <div class="preview">
       <div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">
@@ -105,7 +114,78 @@ body {
       </div>
     </div>
 
-    <button class="copy-btn" onclick="copy('card')">Copy Code</button>
+    <button class="copy-btn" onclick="copy('glass')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Loader Spinner <span class="tag">Loader</span></h5>
+    <p class="text-secondary">Simple loading animation</p>
+
+    <div class="preview">
+      <div class="spinner-border text-light"></div>
+    </div>
+
+    <button class="copy-btn" onclick="copy('loader')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Toggle Switch <span class="tag">Form</span></h5>
+    <div class="preview">
+      <input type="checkbox">
+    </div>
+    <button class="copy-btn" onclick="copy('toggle')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Alert Box <span class="tag">UI</span></h5>
+    <div class="preview">
+      <div class="alert alert-warning">Warning!</div>
+    </div>
+    <button class="copy-btn" onclick="copy('alert')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Badge <span class="tag">UI</span></h5>
+    <div class="preview">
+      <span class="badge bg-primary">New</span>
+    </div>
+    <button class="copy-btn" onclick="copy('badge')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Progress Bar <span class="tag">UI</span></h5>
+    <div class="preview">
+      <div class="progress">
+        <div class="progress-bar" style="width:70%"></div>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copy('progress')">Copy</button>
+  </div>
+</div>
+
+<!-- COMPONENT -->
+<div class="col-md-4">
+  <div class="card-ui">
+    <h5>Input Field <span class="tag">Form</span></h5>
+    <div class="preview">
+      <input class="form-control" placeholder="Enter text">
+    </div>
+    <button class="copy-btn" onclick="copy('input')">Copy</button>
   </div>
 </div>
 
@@ -116,36 +196,34 @@ body {
 <div class="toast-custom" id="toast">Copied!</div>
 
 <script>
-
-/* COPY SYSTEM */
 function copy(type){
   let code = {
-    btn:`<button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; color:white; border-radius:20px;">Click</button>`,
-
+    btn:`<button style="background:linear-gradient(45deg,#6366f1,#ec4899);padding:10px 20px;border-radius:20px;">Click</button>`,
+    glass:`<div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;">Glass</div>`,
     loader:`<div class="spinner-border"></div>`,
-
-    card:`<div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">Glass</div>`
+    toggle:`<input type="checkbox">`,
+    alert:`<div class="alert alert-warning">Warning</div>`,
+    badge:`<span class="badge bg-primary">New</span>`,
+    progress:`<div class="progress"><div class="progress-bar" style="width:70%"></div></div>`,
+    input:`<input class="form-control" placeholder="Enter text">`
   };
 
   navigator.clipboard.writeText(code[type]);
   showToast();
 }
 
-/* TOAST */
 function showToast(){
   let t = document.getElementById("toast");
   t.style.display="block";
   setTimeout(()=>t.style.display="none",2000);
 }
 
-/* ANIMATION */
 gsap.from(".card-ui", {
   opacity:0,
-  y:50,
+  y:40,
   duration:1,
-  stagger:0.2
+  stagger:0.1
 });
-
 </script>
 
 </body>
