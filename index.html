@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UI Playground</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at center, #0f172a, #020617);
+      overflow-x: hidden;
+    }
+
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: fixed;
+      background: rgba(99, 102, 241, 0.6);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      filter: blur(8px);
+    }
+
+    .glass {
+      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .magnetic {
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+
+<body class="text-white font-sans">
+
+<div class="cursor"></div>
+
+<!-- HERO -->
+<section class="h-screen flex flex-col justify-center items-center text-center">
+  <h1 class="text-5xl font-bold mb-6">UI Playground</h1>
+  <p class="text-gray-400 mb-10">Advanced Frontend Experiments</p>
+
+  <button class="magnetic px-8 py-4 bg-indigo-500 rounded-full text-lg">
+    Hover Me
+  </button>
+</section>
+
+<!-- CARDS -->
+<section class="p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+  
+  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
+    <h2 class="text-xl mb-2">Glass Card</h2>
+    <p class="text-gray-400">Modern blur UI effect</p>
+  </div>
+
+  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
+    <h2 class="text-xl mb-2">Hover Animation</h2>
+    <p class="text-gray-400">Smooth scaling interaction</p>
+  </div>
+
+  <div class="glass p-6 rounded-2xl hover:scale-105 transition">
+    <h2 class="text-xl mb-2">Micro UX</h2>
+    <p class="text-gray-400">Subtle UI polish</p>
+  </div>
+
+</section>
+
+<script>
+  // Cursor effect
+  const cursor = document.querySelector(".cursor");
+
+  document.addEventListener("mousemove", (e) => {
+    gsap.to(cursor, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.2
+    });
+  });
+
+  // Magnetic button
+  const button = document.querySelector(".magnetic");
+
+  button.addEventListener("mousemove", (e) => {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+
+    gsap.to(button, {
+      x: x * 0.3,
+      y: y * 0.3
+    });
+  });
+
+  button.addEventListener("mouseleave", () => {
+    gsap.to(button, {
+      x: 0,
+      y: 0
+    });
+  });
+
+  // Entry animation
+  gsap.from("h1", {
+    y: -50,
+    opacity: 0,
+    duration: 1
+  });
+
+  gsap.from("p", {
+    y: 30,
+    opacity: 0,
+    duration: 1,
+    delay: 0.3
+  });
+
+</script>
+
+</body>
+</html>
