@@ -7,6 +7,9 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
@@ -14,10 +17,9 @@
 body {
   background: #0f172a;
   color: white;
-  overflow-x: hidden;
 }
 
-/* SIDEBAR */
+/* Sidebar */
 .sidebar {
   height: 100vh;
   background: #020617;
@@ -26,13 +28,18 @@ body {
   width: 220px;
 }
 
-/* CONTENT */
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Main */
 .main {
   margin-left: 240px;
   padding: 20px;
 }
 
-/* CARD */
+/* Cards */
 .card-custom {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
@@ -40,13 +47,7 @@ body {
   border-radius: 15px;
 }
 
-/* BUTTON */
-.copy-btn {
-  background: #6366f1;
-  border: none;
-}
-
-/* TOAST */
+/* Toast */
 .toast-custom {
   position: fixed;
   bottom: 20px;
@@ -57,10 +58,10 @@ body {
   display: none;
 }
 
+/* Favorite */
 .favorite {
   color: gold;
 }
-
 </style>
 </head>
 
@@ -70,47 +71,92 @@ body {
 <div class="sidebar">
   <h4>UI Playground</h4>
   <hr>
-  <p>Components</p>
-  <p>Favorites</p>
+
+  <button class="btn btn-outline-light" onclick="filter('all')">All</button>
+  <button class="btn btn-outline-light" onclick="filter('button')">Buttons</button>
+  <button class="btn btn-outline-light" onclick="filter('loader')">Loaders</button>
+  <button class="btn btn-outline-light" onclick="filter('card')">Cards</button>
+
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-<h2 class="mb-4">Component Gallery</h2>
+<h2 class="mb-4">Component Library</h2>
 
-<div class="row g-4">
+<div class="row g-4" id="components">
 
-<!-- COMPONENT -->
-<div class="col-md-4">
+<!-- BUTTONS -->
+<div class="col-md-4 component button">
   <div class="card-custom p-3">
-    <h5>Button</h5>
-    <button class="btn btn-primary mb-2">Demo</button>
-    <br>
-    <button class="btn copy-btn text-white" onclick="copyCode('btn')">Copy</button>
-    <button class="btn btn-warning" onclick="toggleFav(this)">⭐</button>
+    <h5><i class="bi bi-hand-index"></i> Primary Button</h5>
+    <button class="btn btn-primary mb-2">Click</button><br>
+    <button class="btn btn-success" onclick="copyCode('btn1')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
   </div>
 </div>
 
-<!-- COMPONENT -->
-<div class="col-md-4">
+<div class="col-md-4 component button">
   <div class="card-custom p-3">
-    <h5>Loader</h5>
-    <div class="spinner-border text-light mb-2"></div>
-    <br>
-    <button class="btn copy-btn text-white" onclick="copyCode('loader')">Copy</button>
-    <button class="btn btn-warning" onclick="toggleFav(this)">⭐</button>
+    <h5><i class="bi bi-lightning"></i> Gradient Button</h5>
+    <button class="btn btn-dark mb-2">Hover</button><br>
+    <button class="btn btn-success" onclick="copyCode('btn2')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
   </div>
 </div>
 
-<!-- COMPONENT -->
-<div class="col-md-4">
+<!-- LOADERS -->
+<div class="col-md-4 component loader">
   <div class="card-custom p-3">
-    <h5>Card</h5>
-    <div class="p-2 bg-dark rounded mb-2">Sample Card</div>
-    <br>
-    <button class="btn copy-btn text-white" onclick="copyCode('card')">Copy</button>
-    <button class="btn btn-warning" onclick="toggleFav(this)">⭐</button>
+    <h5><i class="bi bi-arrow-repeat"></i> Spinner</h5>
+    <div class="spinner-border text-light mb-2"></div><br>
+    <button class="btn btn-success" onclick="copyCode('loader1')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+  </div>
+</div>
+
+<div class="col-md-4 component loader">
+  <div class="card-custom p-3">
+    <h5><i class="bi bi-circle"></i> Dot Loader</h5>
+    <div class="mb-2">● ● ●</div><br>
+    <button class="btn btn-success" onclick="copyCode('loader2')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="col-md-4 component card">
+  <div class="card-custom p-3">
+    <h5><i class="bi bi-card-text"></i> Basic Card</h5>
+    <div class="bg-dark p-2 rounded mb-2">Card</div>
+    <button class="btn btn-success" onclick="copyCode('card1')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+  </div>
+</div>
+
+<div class="col-md-4 component card">
+  <div class="card-custom p-3">
+    <h5><i class="bi bi-window"></i> Glass Card</h5>
+    <div class="p-2 border rounded mb-2">Glass UI</div>
+    <button class="btn btn-success" onclick="copyCode('card2')">Copy</button>
+    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+  </div>
+</div>
+
+<!-- EXTRA COMPONENTS -->
+<div class="col-md-4 component button">
+  <div class="card-custom p-3">
+    <h5><i class="bi bi-toggle-on"></i> Toggle</h5>
+    <input type="checkbox">
+    <br><button class="btn btn-success" onclick="copyCode('toggle')">Copy</button>
+  </div>
+</div>
+
+<div class="col-md-4 component card">
+  <div class="card-custom p-3">
+    <h5><i class="bi bi-bell"></i> Alert Box</h5>
+    <div class="alert alert-warning">Warning</div>
+    <button class="btn btn-success" onclick="copyCode('alert')">Copy</button>
   </div>
 </div>
 
@@ -119,75 +165,58 @@ body {
 </div>
 
 <!-- TOAST -->
-<div class="toast-custom" id="toast">Copied!</div>
+<div class="toast-custom" id="toast">Copied</div>
 
 <script>
 
-/* COPY FUNCTION */
+/* FILTER */
+function filter(type){
+  let comps = document.querySelectorAll(".component");
+  comps.forEach(c=>{
+    if(type==="all" || c.classList.contains(type)){
+      c.style.display="block";
+    } else {
+      c.style.display="none";
+    }
+  });
+}
+
+/* COPY */
 function copyCode(type){
-  let code = "";
+  let code = {
+    btn1:`<button class="btn btn-primary">Click</button>`,
+    btn2:`<button class="btn btn-dark">Hover</button>`,
+    loader1:`<div class="spinner-border"></div>`,
+    loader2:`<div>● ● ●</div>`,
+    card1:`<div class="card p-3">Card</div>`,
+    card2:`<div class="glass">Glass</div>`,
+    toggle:`<input type="checkbox">`,
+    alert:`<div class="alert alert-warning">Warning</div>`
+  };
 
-  if(type==="btn"){
-    code = `<button class="btn btn-primary">Click</button>`;
-  }
-
-  if(type==="loader"){
-    code = `<div class="spinner-border"></div>`;
-  }
-
-  if(type==="card"){
-    code = `<div class="card p-3">Card</div>`;
-  }
-
-  navigator.clipboard.writeText(code);
-  showToast("Code Copied!");
+  navigator.clipboard.writeText(code[type]);
+  showToast();
 }
 
 /* TOAST */
-function showToast(msg){
-  const toast = document.getElementById("toast");
-  toast.innerText = msg;
-  toast.style.display = "block";
-
-  setTimeout(()=>{
-    toast.style.display = "none";
-  },2000);
+function showToast(){
+  let t = document.getElementById("toast");
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",2000);
 }
 
-/* FAVORITES */
-function toggleFav(btn){
+/* FAVORITE */
+function fav(btn){
   btn.classList.toggle("favorite");
-
-  let favs = JSON.parse(localStorage.getItem("favs")) || [];
-  let name = btn.parentElement.querySelector("h5").innerText;
-
-  if(favs.includes(name)){
-    favs = favs.filter(f => f !== name);
-  } else {
-    favs.push(name);
-  }
-
-  localStorage.setItem("favs", JSON.stringify(favs));
 }
 
-/* LOAD FAVORITES */
-window.onload = () => {
-  let favs = JSON.parse(localStorage.getItem("favs")) || [];
-
-  document.querySelectorAll(".card-custom").forEach(card => {
-    let name = card.querySelector("h5").innerText;
-    if(favs.includes(name)){
-      card.querySelector(".btn-warning").classList.add("favorite");
-    }
-  });
-
-  gsap.from(".card-custom", {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.2
-  });
-};
+/* ANIMATION */
+gsap.from(".component", {
+  opacity:0,
+  y:50,
+  duration:1,
+  stagger:0.1
+});
 
 </script>
 
