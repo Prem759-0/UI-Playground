@@ -2,161 +2,161 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>UI Playground Pro</title>
+<title>UI Playground Advanced</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
 body {
-  background: #0f172a;
-  color: white;
+  background:#020617;
+  color:white;
+  overflow-x:hidden;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
-  height: 100vh;
-  background: #020617;
-  padding: 20px;
-  position: fixed;
-  width: 220px;
+  position:fixed;
+  width:220px;
+  height:100vh;
+  background:#020617;
+  padding:20px;
 }
 
-.sidebar button {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-/* Main */
+/* MAIN */
 .main {
-  margin-left: 240px;
-  padding: 20px;
+  margin-left:240px;
+  padding:20px;
 }
 
-/* Cards */
+/* CARD */
 .card-custom {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  border-radius:15px;
+  transition:0.3s;
 }
 
-/* Toast */
+/* LIQUID HOVER */
+.liquid {
+  position:relative;
+  overflow:hidden;
+}
+.liquid::before {
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,0.2),transparent);
+  top:-50%;
+  left:-50%;
+  transform:scale(0);
+  transition:0.5s;
+}
+.liquid:hover::before {
+  transform:scale(1);
+}
+
+/* GRADIENT BUTTON */
+.gradient-btn {
+  background: linear-gradient(45deg,#6366f1,#ec4899);
+  border:none;
+  color:white;
+  padding:10px 20px;
+  border-radius:20px;
+}
+
+/* CURSOR */
+.cursor {
+  width:20px;
+  height:20px;
+  position:fixed;
+  border-radius:50%;
+  background:rgba(99,102,241,0.6);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  filter:blur(8px);
+  z-index:999;
+}
+
+/* FLOATING */
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
+
 .toast-custom {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #22c55e;
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#22c55e;
+  padding:10px;
+  border-radius:8px;
+  display:none;
 }
 
-/* Favorite */
-.favorite {
-  color: gold;
-}
 </style>
 </head>
 
 <body>
 
+<div class="cursor"></div>
+
 <!-- SIDEBAR -->
 <div class="sidebar">
   <h4>UI Playground</h4>
   <hr>
-
-  <button class="btn btn-outline-light" onclick="filter('all')">All</button>
-  <button class="btn btn-outline-light" onclick="filter('button')">Buttons</button>
-  <button class="btn btn-outline-light" onclick="filter('loader')">Loaders</button>
-  <button class="btn btn-outline-light" onclick="filter('card')">Cards</button>
-
+  <button class="btn btn-outline-light w-100 mb-2" onclick="filter('all')">All</button>
+  <button class="btn btn-outline-light w-100 mb-2" onclick="filter('advanced')">Advanced</button>
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-<h2 class="mb-4">Component Library</h2>
+<h2 class="mb-4">Advanced UI Components</h2>
 
-<div class="row g-4" id="components">
+<div class="row g-4">
 
-<!-- BUTTONS -->
-<div class="col-md-4 component button">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-hand-index"></i> Primary Button</h5>
-    <button class="btn btn-primary mb-2">Click</button><br>
-    <button class="btn btn-success" onclick="copyCode('btn1')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+<!-- MAGNETIC BUTTON -->
+<div class="col-md-4 component advanced">
+  <div class="card-custom p-3 magnetic">
+    <h5><i class="bi bi-mouse"></i> Magnetic Button</h5>
+    <button class="btn btn-primary mb-2">Hover</button>
+    <button class="btn btn-success" onclick="copyCode('magnetic')">Copy</button>
   </div>
 </div>
 
-<div class="col-md-4 component button">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-lightning"></i> Gradient Button</h5>
-    <button class="btn btn-dark mb-2">Hover</button><br>
-    <button class="btn btn-success" onclick="copyCode('btn2')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+<!-- LIQUID CARD -->
+<div class="col-md-4 component advanced">
+  <div class="card-custom p-3 liquid">
+    <h5><i class="bi bi-water"></i> Liquid Hover</h5>
+    <p>Hover effect</p>
+    <button class="btn btn-success" onclick="copyCode('liquid')">Copy</button>
   </div>
 </div>
 
-<!-- LOADERS -->
-<div class="col-md-4 component loader">
+<!-- GRADIENT BUTTON -->
+<div class="col-md-4 component advanced">
   <div class="card-custom p-3">
-    <h5><i class="bi bi-arrow-repeat"></i> Spinner</h5>
-    <div class="spinner-border text-light mb-2"></div><br>
-    <button class="btn btn-success" onclick="copyCode('loader1')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
+    <h5><i class="bi bi-palette"></i> Gradient Button</h5>
+    <button class="gradient-btn mb-2">Click</button>
+    <button class="btn btn-success" onclick="copyCode('gradient')">Copy</button>
   </div>
 </div>
 
-<div class="col-md-4 component loader">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-circle"></i> Dot Loader</h5>
-    <div class="mb-2">● ● ●</div><br>
-    <button class="btn btn-success" onclick="copyCode('loader2')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
-  </div>
-</div>
-
-<!-- CARDS -->
-<div class="col-md-4 component card">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-card-text"></i> Basic Card</h5>
-    <div class="bg-dark p-2 rounded mb-2">Card</div>
-    <button class="btn btn-success" onclick="copyCode('card1')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
-  </div>
-</div>
-
-<div class="col-md-4 component card">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-window"></i> Glass Card</h5>
-    <div class="p-2 border rounded mb-2">Glass UI</div>
-    <button class="btn btn-success" onclick="copyCode('card2')">Copy</button>
-    <button class="btn btn-warning" onclick="fav(this)">⭐</button>
-  </div>
-</div>
-
-<!-- EXTRA COMPONENTS -->
-<div class="col-md-4 component button">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-toggle-on"></i> Toggle</h5>
-    <input type="checkbox">
-    <br><button class="btn btn-success" onclick="copyCode('toggle')">Copy</button>
-  </div>
-</div>
-
-<div class="col-md-4 component card">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-bell"></i> Alert Box</h5>
-    <div class="alert alert-warning">Warning</div>
-    <button class="btn btn-success" onclick="copyCode('alert')">Copy</button>
+<!-- FLOATING CARD -->
+<div class="col-md-4 component advanced">
+  <div class="card-custom p-3 float">
+    <h5><i class="bi bi-stars"></i> Floating UI</h5>
+    <p>Animated</p>
   </div>
 </div>
 
@@ -164,58 +164,60 @@ body {
 
 </div>
 
-<!-- TOAST -->
 <div class="toast-custom" id="toast">Copied</div>
 
 <script>
 
+gsap.registerPlugin(ScrollTrigger);
+
+/* CURSOR */
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e=>{
+  gsap.to(cursor,{x:e.clientX,y:e.clientY});
+});
+
+/* MAGNETIC */
+document.querySelectorAll(".magnetic").forEach(el=>{
+  el.addEventListener("mousemove",e=>{
+    let r = el.getBoundingClientRect();
+    let x = e.clientX - r.left - r.width/2;
+    let y = e.clientY - r.top - r.height/2;
+    gsap.to(el,{x:x*0.2,y:y*0.2});
+  });
+  el.addEventListener("mouseleave",()=>gsap.to(el,{x:0,y:0}));
+});
+
 /* FILTER */
 function filter(type){
-  let comps = document.querySelectorAll(".component");
-  comps.forEach(c=>{
-    if(type==="all" || c.classList.contains(type)){
-      c.style.display="block";
-    } else {
-      c.style.display="none";
-    }
+  document.querySelectorAll(".component").forEach(el=>{
+    el.style.display = (type==="all" || el.classList.contains(type)) ? "block":"none";
   });
 }
 
 /* COPY */
 function copyCode(type){
   let code = {
-    btn1:`<button class="btn btn-primary">Click</button>`,
-    btn2:`<button class="btn btn-dark">Hover</button>`,
-    loader1:`<div class="spinner-border"></div>`,
-    loader2:`<div>● ● ●</div>`,
-    card1:`<div class="card p-3">Card</div>`,
-    card2:`<div class="glass">Glass</div>`,
-    toggle:`<input type="checkbox">`,
-    alert:`<div class="alert alert-warning">Warning</div>`
+    magnetic:`// magnetic effect JS`,
+    liquid:`.liquid:hover{...}`,
+    gradient:`background: linear-gradient(...)`
   };
-
   navigator.clipboard.writeText(code[type]);
   showToast();
 }
 
 /* TOAST */
 function showToast(){
-  let t = document.getElementById("toast");
+  let t=document.getElementById("toast");
   t.style.display="block";
   setTimeout(()=>t.style.display="none",2000);
 }
 
-/* FAVORITE */
-function fav(btn){
-  btn.classList.toggle("favorite");
-}
-
-/* ANIMATION */
-gsap.from(".component", {
+/* SCROLL ANIMATION */
+gsap.from(".component",{
   opacity:0,
   y:50,
   duration:1,
-  stagger:0.1
+  stagger:0.2
 });
 
 </script>
