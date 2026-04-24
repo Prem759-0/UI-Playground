@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>UI Playground Pro</title>
+<title>UI Playground Ultra</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -16,8 +16,8 @@ body {
 
 /* HEADER */
 .header {
-  padding: 40px 0;
-  text-align: center;
+  text-align:center;
+  padding:50px 0;
 }
 
 /* CARD */
@@ -28,47 +28,80 @@ body {
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.08);
   transition: all 0.3s ease;
-  height: 100%;
 }
 
 .card-ui:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-8px) scale(1.03);
   border-color: #6366f1;
 }
 
 /* PREVIEW */
 .preview {
-  background: #020617;
-  padding: 20px;
-  border-radius: 12px;
-  margin: 15px 0;
-  text-align: center;
+  background:#020617;
+  padding:20px;
+  border-radius:12px;
+  margin:15px 0;
+  text-align:center;
 }
 
 /* BUTTON */
 .copy-btn {
   background: linear-gradient(45deg,#6366f1,#ec4899);
-  border: none;
-  padding: 6px 14px;
-  border-radius: 8px;
-  color: white;
+  border:none;
+  padding:6px 14px;
+  border-radius:8px;
+  color:white;
 }
 
 /* TOAST */
 .toast-custom {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #22c55e;
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#22c55e;
+  padding:10px 20px;
+  border-radius:8px;
+  display:none;
 }
 
-/* BADGE */
-.tag {
-  font-size: 12px;
-  opacity: 0.7;
+/* ADVANCED EFFECTS */
+
+/* Glow Button */
+.glow-btn {
+  background:#6366f1;
+  padding:10px 20px;
+  border-radius:20px;
+  box-shadow:0 0 15px #6366f1;
+  border:none;
+}
+
+/* Pulse */
+.pulse {
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+/* Floating */
+.float {
+  animation:float 3s infinite ease-in-out;
+}
+@keyframes float {
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
+
+/* Gradient Border */
+.gradient-border {
+  border:2px solid transparent;
+  background:linear-gradient(#020617,#020617) padding-box,
+             linear-gradient(45deg,#6366f1,#ec4899) border-box;
+  padding:10px;
+  border-radius:12px;
 }
 
 </style>
@@ -78,115 +111,101 @@ body {
 
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
-  <h1>✨ UI Playground Pro</h1>
-  <p class="text-secondary">Modern UI Components with Live Preview</p>
+  <h1>🔥 UI Playground Ultra</h1>
+  <p class="text-secondary">Advanced Animated UI Components</p>
 </div>
 
 <div class="row g-4">
 
-<!-- COMPONENT -->
+<!-- 1 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Gradient Button <span class="tag">Button</span></h5>
-    <p class="text-secondary">Modern animated gradient button</p>
-
-    <div class="preview">
-      <button style="background:linear-gradient(45deg,#6366f1,#ec4899); border:none; padding:10px 20px; border-radius:20px; color:white;">
-        Click Me
-      </button>
-    </div>
-
-    <button class="copy-btn" onclick="copy('btn')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Glow Button</h5>
+<div class="preview">
+<button class="glow-btn">Click</button>
+</div>
+<button class="copy-btn" onclick="copy('glow')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 2 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Glass Card <span class="tag">Card</span></h5>
-    <p class="text-secondary">Glassmorphism effect UI</p>
-
-    <div class="preview">
-      <div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px;">
-        Glass Effect
-      </div>
-    </div>
-
-    <button class="copy-btn" onclick="copy('glass')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Pulse Animation</h5>
+<div class="preview">
+<div class="bg-primary p-3 rounded pulse">Pulse</div>
+</div>
+<button class="copy-btn" onclick="copy('pulse')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 3 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Loader Spinner <span class="tag">Loader</span></h5>
-    <p class="text-secondary">Simple loading animation</p>
-
-    <div class="preview">
-      <div class="spinner-border text-light"></div>
-    </div>
-
-    <button class="copy-btn" onclick="copy('loader')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Floating Card</h5>
+<div class="preview">
+<div class="bg-dark p-3 rounded float">Floating</div>
+</div>
+<button class="copy-btn" onclick="copy('float')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 4 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Toggle Switch <span class="tag">Form</span></h5>
-    <div class="preview">
-      <input type="checkbox">
-    </div>
-    <button class="copy-btn" onclick="copy('toggle')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Gradient Border</h5>
+<div class="preview">
+<div class="gradient-border">Border Effect</div>
+</div>
+<button class="copy-btn" onclick="copy('border')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 5 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Alert Box <span class="tag">UI</span></h5>
-    <div class="preview">
-      <div class="alert alert-warning">Warning!</div>
-    </div>
-    <button class="copy-btn" onclick="copy('alert')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Spinner Loader</h5>
+<div class="preview">
+<div class="spinner-border text-light"></div>
+</div>
+<button class="copy-btn" onclick="copy('loader')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 6 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Badge <span class="tag">UI</span></h5>
-    <div class="preview">
-      <span class="badge bg-primary">New</span>
-    </div>
-    <button class="copy-btn" onclick="copy('badge')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Badge</h5>
+<div class="preview">
+<span class="badge bg-danger">New</span>
+</div>
+<button class="copy-btn" onclick="copy('badge')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 7 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Progress Bar <span class="tag">UI</span></h5>
-    <div class="preview">
-      <div class="progress">
-        <div class="progress-bar" style="width:70%"></div>
-      </div>
-    </div>
-    <button class="copy-btn" onclick="copy('progress')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Progress Bar</h5>
+<div class="preview">
+<div class="progress">
+<div class="progress-bar bg-success" style="width:70%"></div>
+</div>
+</div>
+<button class="copy-btn" onclick="copy('progress')">Copy</button>
+</div>
 </div>
 
-<!-- COMPONENT -->
+<!-- 8 -->
 <div class="col-md-4">
-  <div class="card-ui">
-    <h5>Input Field <span class="tag">Form</span></h5>
-    <div class="preview">
-      <input class="form-control" placeholder="Enter text">
-    </div>
-    <button class="copy-btn" onclick="copy('input')">Copy</button>
-  </div>
+<div class="card-ui">
+<h5>Input Field</h5>
+<div class="preview">
+<input class="form-control" placeholder="Type here">
+</div>
+<button class="copy-btn" onclick="copy('input')">Copy</button>
+</div>
 </div>
 
 </div>
@@ -197,32 +216,32 @@ body {
 
 <script>
 function copy(type){
-  let code = {
-    btn:`<button style="background:linear-gradient(45deg,#6366f1,#ec4899);padding:10px 20px;border-radius:20px;">Click</button>`,
-    glass:`<div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;">Glass</div>`,
-    loader:`<div class="spinner-border"></div>`,
-    toggle:`<input type="checkbox">`,
-    alert:`<div class="alert alert-warning">Warning</div>`,
-    badge:`<span class="badge bg-primary">New</span>`,
-    progress:`<div class="progress"><div class="progress-bar" style="width:70%"></div></div>`,
-    input:`<input class="form-control" placeholder="Enter text">`
-  };
+let code = {
+glow:`<button class="glow-btn">Click</button>`,
+pulse:`.pulse{animation:pulse 1.5s infinite}`,
+float:`.float{animation:float 3s infinite}`,
+border:`.gradient-border{...}`,
+loader:`<div class="spinner-border"></div>`,
+badge:`<span class="badge bg-danger">New</span>`,
+progress:`<div class="progress"><div class="progress-bar" style="width:70%"></div></div>`,
+input:`<input class="form-control">`
+};
 
-  navigator.clipboard.writeText(code[type]);
-  showToast();
+navigator.clipboard.writeText(code[type]);
+showToast();
 }
 
 function showToast(){
-  let t = document.getElementById("toast");
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",2000);
+let t=document.getElementById("toast");
+t.style.display="block";
+setTimeout(()=>t.style.display="none",2000);
 }
 
-gsap.from(".card-ui", {
-  opacity:0,
-  y:40,
-  duration:1,
-  stagger:0.1
+gsap.from(".card-ui",{
+opacity:0,
+y:40,
+duration:1,
+stagger:0.1
 });
 </script>
 
