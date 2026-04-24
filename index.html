@@ -2,224 +2,191 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>UI Playground Advanced</title>
+<title>UI Playground Ultra</title>
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
 body {
+  margin:0;
   background:#020617;
   color:white;
   overflow-x:hidden;
+  font-family:sans-serif;
 }
 
-/* SIDEBAR */
-.sidebar {
-  position:fixed;
-  width:220px;
+/* HERO */
+.hero {
   height:100vh;
-  background:#020617;
-  padding:20px;
-}
-
-/* MAIN */
-.main {
-  margin-left:240px;
-  padding:20px;
-}
-
-/* CARD */
-.card-custom {
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
-  border-radius:15px;
-  transition:0.3s;
-}
-
-/* LIQUID HOVER */
-.liquid {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   position:relative;
-  overflow:hidden;
-}
-.liquid::before {
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,0.2),transparent);
-  top:-50%;
-  left:-50%;
-  transform:scale(0);
-  transition:0.5s;
-}
-.liquid:hover::before {
-  transform:scale(1);
 }
 
-/* GRADIENT BUTTON */
-.gradient-btn {
-  background: linear-gradient(45deg,#6366f1,#ec4899);
-  border:none;
-  color:white;
-  padding:10px 20px;
-  border-radius:20px;
-}
-
-/* CURSOR */
-.cursor {
-  width:20px;
-  height:20px;
+/* CURSOR SPOTLIGHT */
+.spotlight {
   position:fixed;
-  border-radius:50%;
-  background:rgba(99,102,241,0.6);
+  width:300px;
+  height:300px;
+  background: radial-gradient(circle, rgba(99,102,241,0.4), transparent);
   pointer-events:none;
   transform:translate(-50%,-50%);
-  filter:blur(8px);
-  z-index:999;
+  z-index:1;
 }
 
-/* FLOATING */
-.float {
-  animation: float 4s ease-in-out infinite;
-}
-@keyframes float {
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-  100%{transform:translateY(0)}
+/* TEXT REVEAL */
+.reveal-text span {
+  display:inline-block;
+  opacity:0;
+  transform:translateY(50px);
 }
 
-.toast-custom {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#22c55e;
-  padding:10px;
-  border-radius:8px;
-  display:none;
+/* PARALLAX LAYERS */
+.layer {
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  filter:blur(80px);
 }
 
+.layer1 { background:#6366f1; top:20%; left:10%; }
+.layer2 { background:#ec4899; top:60%; right:10%; }
+
+/* CARDS */
+.card-adv {
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:20px;
+  transition:0.4s;
+  backdrop-filter:blur(15px);
+}
+
+.card-adv:hover {
+  transform:scale(1.05) rotate(1deg);
+}
+
+.section {
+  padding:100px 20px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
+<!-- CURSOR LIGHT -->
+<div class="spotlight" id="spot"></div>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <h4>UI Playground</h4>
-  <hr>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="filter('all')">All</button>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="filter('advanced')">Advanced</button>
-</div>
+<!-- HERO -->
+<section class="hero">
 
-<!-- MAIN -->
-<div class="main">
+<div class="layer layer1"></div>
+<div class="layer layer2"></div>
 
-<h2 class="mb-4">Advanced UI Components</h2>
+<h1 class="display-3 reveal-text" id="title">
+  UI Playground
+</h1>
 
-<div class="row g-4">
+<p class="mt-3 opacity-75">Next-level frontend experience</p>
 
-<!-- MAGNETIC BUTTON -->
-<div class="col-md-4 component advanced">
-  <div class="card-custom p-3 magnetic">
-    <h5><i class="bi bi-mouse"></i> Magnetic Button</h5>
-    <button class="btn btn-primary mb-2">Hover</button>
-    <button class="btn btn-success" onclick="copyCode('magnetic')">Copy</button>
+</section>
+
+<!-- COMPONENT SECTION -->
+<section class="section container">
+  <h2 class="mb-5">Interactive Components</h2>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="card-adv">
+        <h5>Hover Distortion</h5>
+        <p>Premium UI effect</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-adv">
+        <h5>3D Tilt Feel</h5>
+        <p>Mouse interaction</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-adv">
+        <h5>Scroll Animation</h5>
+        <p>Reveal elements</p>
+      </div>
+    </div>
+
   </div>
-</div>
-
-<!-- LIQUID CARD -->
-<div class="col-md-4 component advanced">
-  <div class="card-custom p-3 liquid">
-    <h5><i class="bi bi-water"></i> Liquid Hover</h5>
-    <p>Hover effect</p>
-    <button class="btn btn-success" onclick="copyCode('liquid')">Copy</button>
-  </div>
-</div>
-
-<!-- GRADIENT BUTTON -->
-<div class="col-md-4 component advanced">
-  <div class="card-custom p-3">
-    <h5><i class="bi bi-palette"></i> Gradient Button</h5>
-    <button class="gradient-btn mb-2">Click</button>
-    <button class="btn btn-success" onclick="copyCode('gradient')">Copy</button>
-  </div>
-</div>
-
-<!-- FLOATING CARD -->
-<div class="col-md-4 component advanced">
-  <div class="card-custom p-3 float">
-    <h5><i class="bi bi-stars"></i> Floating UI</h5>
-    <p>Animated</p>
-  </div>
-</div>
-
-</div>
-
-</div>
-
-<div class="toast-custom" id="toast">Copied</div>
+</section>
 
 <script>
-
 gsap.registerPlugin(ScrollTrigger);
 
-/* CURSOR */
-const cursor = document.querySelector(".cursor");
+/* SPOTLIGHT CURSOR */
+const spot = document.getElementById("spot");
 document.addEventListener("mousemove", e=>{
-  gsap.to(cursor,{x:e.clientX,y:e.clientY});
+  gsap.to(spot,{x:e.clientX,y:e.clientY,duration:0.2});
 });
 
-/* MAGNETIC */
-document.querySelectorAll(".magnetic").forEach(el=>{
-  el.addEventListener("mousemove",e=>{
-    let r = el.getBoundingClientRect();
-    let x = e.clientX - r.left - r.width/2;
-    let y = e.clientY - r.top - r.height/2;
-    gsap.to(el,{x:x*0.2,y:y*0.2});
-  });
-  el.addEventListener("mouseleave",()=>gsap.to(el,{x:0,y:0}));
+/* TEXT REVEAL */
+let chars = document.getElementById("title").innerText.split("");
+let html = "";
+chars.forEach(c=>{
+  html += `<span>${c}</span>`;
+});
+document.getElementById("title").innerHTML = html;
+
+gsap.to(".reveal-text span",{
+  opacity:1,
+  y:0,
+  stagger:0.05,
+  duration:0.8
 });
 
-/* FILTER */
-function filter(type){
-  document.querySelectorAll(".component").forEach(el=>{
-    el.style.display = (type==="all" || el.classList.contains(type)) ? "block":"none";
-  });
-}
+/* PARALLAX */
+gsap.to(".layer1",{
+  y:100,
+  scrollTrigger:{scrub:true}
+});
+gsap.to(".layer2",{
+  y:-100,
+  scrollTrigger:{scrub:true}
+});
 
-/* COPY */
-function copyCode(type){
-  let code = {
-    magnetic:`// magnetic effect JS`,
-    liquid:`.liquid:hover{...}`,
-    gradient:`background: linear-gradient(...)`
-  };
-  navigator.clipboard.writeText(code[type]);
-  showToast();
-}
-
-/* TOAST */
-function showToast(){
-  let t=document.getElementById("toast");
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",2000);
-}
-
-/* SCROLL ANIMATION */
-gsap.from(".component",{
+/* SCROLL REVEAL */
+gsap.from(".card-adv",{
   opacity:0,
-  y:50,
-  duration:1,
-  stagger:0.2
+  y:100,
+  stagger:0.2,
+  scrollTrigger:{
+    trigger:".card-adv",
+    start:"top 80%"
+  }
 });
 
+/* 3D TILT */
+document.querySelectorAll(".card-adv").forEach(card=>{
+  card.addEventListener("mousemove",e=>{
+    let r = card.getBoundingClientRect();
+    let x = (e.clientX - r.left)/r.width - 0.5;
+    let y = (e.clientY - r.top)/r.height - 0.5;
+    card.style.transform = `rotateX(${y*10}deg) rotateY(${x*10}deg) scale(1.05)`;
+  });
+
+  card.addEventListener("mouseleave",()=>{
+    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+  });
+});
 </script>
 
 </body>
